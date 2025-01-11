@@ -1,0 +1,171 @@
+1) create_kpi 
+
+
+mutation {
+  createKpi(formula: "x * 2") {
+    kpi {
+      id
+      formula
+    }
+  }
+}
+
+
+------------------------------
+
+2) fetch the formula of kpi with id 4
+
+query {
+  kpi(id: 4) {
+    formula
+  }
+}
+
+
+
+-------------------------
+
+3) update_formula of kpi with id 4 
+
+mutation {
+  updateKpi(id: 4, formula: "x + 3") {
+    kpi {
+      id
+      formula
+    }
+  }
+}
+
+----------------------------
+
+4) fetch all kpis
+
+query {
+  kpis {
+    id
+    formula
+  }
+}
+
+------------------------
+
+5) Delete kpi with id 4
+mutation {
+  deleteKpi(id: "4") {
+    success
+  }
+}
+
+---------------------
+6) create new simulator
+
+mutation {
+  createSimulator(
+    startDate: "2024-01-07T00:00:00Z"
+    interval: 20
+    kpiId: "3"  
+  ) {
+    simulator {
+      id
+      startDate
+      interval
+      kpiId {
+        id
+        formula
+      }
+    }
+  }
+}
+
+
+--------------------
+7) update the interval of simulator 8 from 20 to 30 seconds 
+
+mutation {
+  updateSimulator(
+    id: "8"  
+    interval: 30  
+    startDate: "2024-01-08T00:00:00Z"  
+      
+  ) {
+    simulator {
+      id
+      startDate
+      interval
+      kpiId {
+        id
+        formula
+      }
+    }
+  }
+}
+
+------------------------------------
+
+8) fetch all simulators
+
+query {
+  simulators {
+    id
+    startDate
+    interval
+    kpiId {
+      id
+      formula
+    }
+  }
+}
+
+-------------------
+
+9) Delete Simulator with id 9
+
+mutation {
+  deleteSimulator(id: "9") {  
+    success
+  }
+}
+
+--------------------
+
+update the formula of kpi with id 3 and create new simulator with interval 50 sec
+mutation UpdateAndCreate(
+  $kpiId: ID!, 
+  $formula: String!, 
+  $startDate: DateTime!, 
+  $interval: Int!
+) {
+  updatedKpi: updateKpi(
+    id: $kpiId
+    formula: $formula
+  ) {
+    kpi {
+      id
+      formula
+    }
+  }
+  
+  newSimulator: createSimulator(
+    startDate: $startDate
+    interval: $interval
+    kpiId: $kpiId
+  ) {
+    simulator {
+      id
+      startDate
+      interval
+    }
+  }
+}
+
+
+{
+  "kpiId": "3",
+  "formula": "x * 3",
+  "startDate": "2024-01-07T00:00:00Z",
+  "interval": 50
+}
+
+
+
+

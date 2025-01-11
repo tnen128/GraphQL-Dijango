@@ -1,0 +1,5 @@
+django>=3.2
+graphene-django>=2.15
+psycopg2-binary
+python-dateutil
+apache-airflow
